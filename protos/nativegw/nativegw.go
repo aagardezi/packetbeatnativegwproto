@@ -1,6 +1,7 @@
 package nativegw
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/elastic/beats/v7/libbeat/common"
@@ -61,6 +62,7 @@ func New(
 	if err := p.init(results, watcher, &config); err != nil {
 		return nil, err
 	}
+
 	return p, nil
 }
 
@@ -118,6 +120,7 @@ func (np *nativegwPlugin) Parse(
 ) protos.ProtocolData {
 	defer logp.Recover("Parse nativegwPlugin exception")
 
+	fmt.Print(pkt.Payload)
 	conn := np.ensureConnection(private)
 	st := conn.streams[dir]
 	if st == nil {
